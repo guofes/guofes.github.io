@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/satr-32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/star-16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端基础," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="stitches" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="BEM基于组件方式的web开发方法，基本思想是将用户界面分成独立的模块。 B Block（块） （通常指模块，组件） Block 是一个逻辑上和功能上独立的页面组件，等同于网页组件中的部件（等同于网页中的组件）。Block 封装了行为（Javascript）、模板、样式（CSS）和其他实现技术。独立状态的 Block 可供复用，并且促进项目开发和维护。    内容 模块名称：描述了它的目的（“它是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css命名规范BEM及常用命名">
+<meta property="og:url" content="http:&#x2F;&#x2F;guofes.github.io&#x2F;2019&#x2F;12&#x2F;18&#x2F;ss%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83BEM%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E5%90%8D&#x2F;index.html">
+<meta property="og:site_name" content="stitches">
+<meta property="og:description" content="BEM基于组件方式的web开发方法，基本思想是将用户界面分成独立的模块。 B Block（块） （通常指模块，组件） Block 是一个逻辑上和功能上独立的页面组件，等同于网页组件中的部件（等同于网页中的组件）。Block 封装了行为（Javascript）、模板、样式（CSS）和其他实现技术。独立状态的 Block 可供复用，并且促进项目开发和维护。    内容 模块名称：描述了它的目的（“它是">
+<meta property="article:published_time" content="2019-12-18T08:28:00.000Z">
+<meta property="article:modified_time" content="2020-07-20T07:24:42.666Z">
+<meta property="article:author" content="郭峰">
+<meta property="article:tag" content="前端基础">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://guofes.github.io/2019/12/18/ss命名规范BEM及常用命名/"/>
+
+
+
+
+
+  <title>css命名规范BEM及常用命名 | stitches</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://www.github.com/guofes" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">stitches</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+       <!-- /%20 -->
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home  //首页"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+       <!-- /about/%20 -->
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+       <!-- /tags/%20 -->
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags //标签"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+       <!-- /categories/%20 -->
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+       <!-- /archives/%20 -->
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://guofes.github.io/2019/12/18/ss%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83BEM%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E5%90%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郭峰">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stitches">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">css命名规范BEM及常用命名</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-18T16:28:00+08:00">
+                2019-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="BEM"><a href="#BEM" class="headerlink" title="BEM"></a>BEM</h1><p>基于组件方式的web开发方法，基本思想是将用户界面分成独立的模块。</p>
+<h1 id="B-Block（块）"><a href="#B-Block（块）" class="headerlink" title="B Block（块）"></a>B Block（块）</h1><ul>
+<li>（通常指模块，组件）<blockquote>
+<p>Block 是一个逻辑上和功能上独立的页面组件，等同于网页组件中的部件（等同于网页中的组件）。Block 封装了行为（Javascript）、模板、样式（CSS）和其他实现技术。独立状态的 Block 可供复用，并且促进项目开发和维护。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><ul>
+<li>模块名称：描述了它的目的（“它是什么？” —— 菜单或者按钮），而不是它的状态（“它看起来是什么样子？” —— 红色或者大的）。</li>
+<li>模块不应该影响它所在的环境，这意味着你不应该为模块设置会影响到外部的形状（影响大小的 padding 或边框）和定位</li>
+<li>不在使用 BEM 的时候使用 CSS 标签选择器和 ID 选择器</li>
+<li>名称可以包含拉丁字母、数字、短划线</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="嵌套关系"><a href="#嵌套关系" class="headerlink" title="嵌套关系"></a>嵌套关系</h3><ul>
+<li>模块与模块之间可以彼此嵌套</li>
+<li>你可以有任意级别的嵌套层次<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 'head' 模块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 嵌套 'logo' 模块 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"logo"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 嵌套 'search-form' 模块 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form"</span>&gt;</span><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 嵌套 'nav' 模块 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"nav"</span>&gt;</span><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3></li>
+<li>嵌套式的构造<blockquote>
+<p>Block 可以被嵌套到任何其他 block 里面去。例如，一个头部 block 可以包含一个 logo、一个搜索表单和一个登录 block。</p>
+</blockquote>
+</li>
+<li>随意放置<blockquote>
+<p>Block 可以在一个页面内任意移动，也可以在页面之间或项目之间移动。Block 作为独立的实体来实现，这使得在页面上改变 block 的位置 并确保其功能和外观一切正常 成为可能。</p>
+</blockquote>
+</li>
+<li>可复用<blockquote>
+<p>一个界面可以包含同一个 block 的几个实例。</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="E-Element（元素）"><a href="#E-Element（元素）" class="headerlink" title="E Element（元素）"></a>E Element（元素）</h1><ul>
+<li><p>模块（block）的组成部分</p>
+<blockquote>
+<p>元素（Element）是一个模块（block）的组成部分，且不能脱离模块单独地被使用。例如，一个菜单项（a menu item ）不会在一个菜单块（a menu block ）范围之外使用，因此它是一个元素（element）。<br>一个界面可以包含同一个 block 的几个实例。</p>
+</blockquote>
+<h2 id="内容-1"><a href="#内容-1" class="headerlink" title="内容"></a>内容</h2></li>
+<li><p>元素名称：描述了它的目的（用处）（“这是什么？” —— item，text，等等。），而不是它的状态（“什么类型的，或者它看起来是什么样的？” —— 红色，大的，等等。）</p>
+</li>
+<li><p>完整的元素名的结构是 block-name__element-name。元素的名字与模块的名字使用双下划线分隔（__）</p>
+</li>
+<li><p>元素名称可以包含拉丁字母、数字、短划线、下划线</p>
+<h2 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h2><h3 id="1嵌套关系"><a href="#1嵌套关系" class="headerlink" title="1嵌套关系"></a>1嵌套关系</h3></li>
+<li><p>元素之间可以彼此嵌套</p>
+</li>
+<li><p>你可以拥有任意层次的嵌套级别</p>
+</li>
+<li><p>一个元素总是一个模块的一部分，而不是另一个元素的一部分，这意味着元素的名称不能被定义为 ‘block_elem1_elem2’ 这样的层次结构。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">     正确的。完整的元素名的结构符合如下模式：</span></span><br><span class="line"><span class="comment">     'block-name__element-name'</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"search-form__content"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"search-form__hot"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"search-form__hot-word"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"search-form__hot-word"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">     不正确的。完整的元素名的结构不符合如下模式：</span></span><br><span class="line"><span class="comment">     'block-name__element-name'</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"search-form__content"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 推荐：'search-form__input' 或者 'search-form__content-input' --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__content__input"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 推荐：'search-form__button' 或者 'search-form__content-button' --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__content__button"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果在模块名称上定义了命名空间，也要保证元素名称是依赖于模块的（block_elem）。<br>在 DOM 树中，一个模块可以有元素嵌套结构：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"block"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"block_elem1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"block_elem2"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"block_elem3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在 BEM 的方法论中，这样的模块结构通常表示为一个并列的元素列表：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.block &#123;&#125;</span><br><span class="line">.block_elem1 &#123;&#125;</span><br><span class="line">.block_elem2 &#123;&#125;</span><br><span class="line">.block_elem3 &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以在不改变每个单独的元素的情况下改变一个模块的 DOM 结构：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"block"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"block_elem1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"block_elem1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"block_elem3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2组成部分"><a href="#2组成部分" class="headerlink" title="2组成部分"></a>2组成部分</h3><p>  一个元素总是一个模块的一部分，不可以单独使用</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 正确的。元素都位于 'search-form' 模块内 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 'search-form' 模块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 在 'search-form' 模块内的 'input' 元素 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 在 'search-form' 模块内的 'button' 元素 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 不正确的。元素位于 'search-form' 模块的上下文之外 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 'search-form' 模块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-block"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 在 'search-form' 模块内的 'input' 元素 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 在 'search-form' 模块内的 'button' 元素 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3可选性"><a href="#3可选性" class="headerlink" title="3可选性"></a>3可选性</h3><p>一个元素是一个可选的模块组件。并不是所有的模块都必须有元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 'search-form' 模块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"search-form"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 'input' 模块 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"input"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- 'button' 模块 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"button"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>①如果这段代码可能被重用，并且它不依赖于页面上的其他组件，那你应该创建一个模块。</p>
+<p>②如果这段代码在没有父实体（模块）的情况下不能使用，那你应该创建一个元素。</p>
+<p>③为了简化开发，元素应该被分割成一小部分-子元素。在 BEM 方法论中，你不能创建元素的元素，在这种情况下，你需要创建一个服务模块，而不是创建一个元素。</p>
+<h1 id="M-Modifier（修饰符）"><a href="#M-Modifier（修饰符）" class="headerlink" title="M Modifier（修饰符）"></a>M Modifier（修饰符）</h1><ul>
+<li>BEM 实体<blockquote>
+<p>Modifier 是一个 BEM 实体，它定义了一个 block 或 element 的外观和行为。<br>Modifier 可用也可不用（即不一定要用到 modifier）。<br>Modifier 本质上与 HTML 的属性很相似。同一个 block 会因为 modifier 的使用而 看起来与之前有所不同。<br>例如，菜单块（the menu block ）的外观可能会因为在它身上用了一个 modifier 而改变。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="内容-2"><a href="#内容-2" class="headerlink" title="内容"></a>内容</h2><p>一种用于定义模块和元素的外观，状态和行为的实体。</p>
+<ul>
+<li><p>修饰符的名称：描述了它的外观（“多大？”或者“它的主题是什么？”等等—— size-s 或者 theme-islands），它的状态（“它与其他有什么不同？” —— disabled，focused，等等）以及他的行为（“它的行为什么？”或者“它如何响应用户？”——比如 directions-left-top）。</p>
+</li>
+<li><p>修饰符的名字与模块或者元素的名字使用双连字符（–）</p>
+</li>
+<li><p>修饰符名称可以包含拉丁字母、数字短划线、下划线</p>
+<h3 id="修饰符的类型"><a href="#修饰符的类型" class="headerlink" title="修饰符的类型"></a>修饰符的类型</h3><p>1、Boolean</p>
+</li>
+<li><p>当修饰符的存在或不存在是重要的，与它的值无关时使用这种类型的修饰符。比如：disabled。如果一个布尔类型的修饰符是可见的，它的值被假定为 true。</p>
+</li>
+<li><p>修饰符的全名的结构遵循如下模式：</p>
+</li>
+<li><p>Modifier（修饰符 ）</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; block-name–modifier-name</span><br><span class="line">&gt; block-name__element-name–modifier-name</span><br><span class="line">```html</span><br><span class="line"><span class="comment">&lt;!-- 'search-form' 模块有一个 ‘focused’ 的布尔类型的修饰符 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form search-form--focused"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 'button' 元素有一个 'disabled' 的布尔类型修饰符 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button search-form__button--disabled"</span>&gt;</span>Search<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2、键-值</p>
+<ul>
+<li><p>当修饰符的值是重要的使用键值对类型。</p>
+<blockquote>
+<p>“一个 islands 设计主题的按钮”：menu–theme-islands</p>
+</blockquote>
+</li>
+<li><p>这种类型的修饰符的全名的结构遵循如下模式：</p>
+<blockquote>
+<p>block-name–modifier-name-modifier-value<br>block-name__element-name_modifier-name_modifier-value</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- The `search-form` 模块有值为 'islands' 的 `theme` 修饰 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form search-form--theme-islands"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- The `button` 元素有值为 'm' 的 `size` 修饰 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button search-form__button--size-m"</span>&gt;</span>Search<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 你不能同时使用两个具有不同值的的相同修饰符 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form</span></span></span><br><span class="line"><span class="tag"><span class="string">             search-form--theme-islands</span></span></span><br><span class="line"><span class="tag"><span class="string">             search-form--theme-lite"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button</span></span></span><br><span class="line"><span class="tag"><span class="string">                   search-form__button--size-s</span></span></span><br><span class="line"><span class="tag"><span class="string">                   search-form__button--size-m"</span>&gt;</span></span><br><span class="line">        Search</span><br><span class="line">    <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h2><p>一个修饰符不能被单独使用。</p>
+<ul>
+<li>从 BEM 的角度，一个修饰符不能脱离模块或元素而被使用。一个修饰符应该改变实体的外观，行为或者状态，而不是替换它。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 正确的。'search-form' 模块有值为 'islands' 的 'theme' 修饰符 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form search-form--theme-islands"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button"</span>&gt;</span>Search<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 不正确的。'search-form' 丢失了 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form--theme-islands"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button"</span>&gt;</span>Search<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>混合模式：一种在单一的 DOM 节点上使用不同 BEM 实体的技术</p>
+<ul>
+<li>混合模式允许<blockquote>
+<p>结合多个实体的行为和样式，而不是重复编写代码<br>在现有代码的基础上创建具有新语义的UI组件</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 'header' 模块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        将 'header' 模块的 'search-form' 元素与 'search-form' 模块混合在一起使用</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"search-form header__search-form"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们将 header 模块的 search-form 元素与 search-form 模块的行为和样式结合在一起。这种方式允许我们在 header__search-form 元素上设置额外的形状和定位，而 search-form 模块仍然是通用的。因此，我们可以在任何环境中使用模块，因为模块没有指定任何填充。这正是我们可以独立调用模块的原因。</p>
+<p>文件系统：在 BEM 方法论中采用的组件概念同样适用于项目的文件结构中。模块、元素和修饰符的实现可以被分在独立的文件中，这意味着，我们单独地使用它们。</p>
+<ul>
+<li>一个单独的模块对应一个单独的目录</li>
+<li>模块和其对应的目录拥有相同的名字。比如， header 模块放置在 header/ 目录中，menu 模块放置在 menu/ 目录中。</li>
+<li>一个模块的实现分为单独的文件。比如， header.css 和 header.js。</li>
+<li>模块目录是其元素和修饰所在目录的根目录。</li>
+<li>元素目录的名称以双下划线（_）开始。比如，header/_logo/ 和 menu/_item。</li>
+<li>修饰目录的名称以单下划线（_）开始。比如，header_fixed 和 menu/_theme_islands/。</li>
+<li>元素和修饰的实现分为不同的文件。比如，header_input.js 和 header_theme_islands.css。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">search-form&#x2F;                           # Directory of the search-form</span><br><span class="line"></span><br><span class="line">    __input&#x2F;                           # Subdirectory of the search-form__input</span><br><span class="line">        search-form__input.css         # CSS implementation of the</span><br><span class="line">                                       # search-form__input element</span><br><span class="line">        search-form__input.js          # JavaScript implementation of the</span><br><span class="line">                                       # search-form__input element</span><br><span class="line"></span><br><span class="line">    __button&#x2F;                          # Subdirectory of the search-form__button element</span><br><span class="line">        search-form__button.css</span><br><span class="line">        search-form__button.js</span><br><span class="line"></span><br><span class="line">    _theme&#x2F;                            # Subdirectory of the search-form_theme modifier</span><br><span class="line">        search-form_theme_islands.css  # CSS implementation of the search-form block</span><br><span class="line">                                       # that has the theme modifier with the value</span><br><span class="line">                                       # islands</span><br><span class="line">        search-form_theme_lite.css     # CSS implementation of the search-form block</span><br><span class="line">                                       # that has the theme modifier with the value</span><br><span class="line">                                       # lite</span><br><span class="line"></span><br><span class="line">search-form.css                        # CSS implementation of the search-form block</span><br><span class="line">search-form.js                         # JavaScript implementation of the</span><br><span class="line">                                       # search-form block</span><br></pre></td></tr></table></figure>
+
+<p>这样的文件结构可以很好地支持我们重用代码。</p>
+<h2 id="BEM-entity（BEM-实体）"><a href="#BEM-entity（BEM-实体）" class="headerlink" title="BEM entity（BEM 实体）"></a>BEM entity（BEM 实体）</h2><blockquote>
+<p>Block,element 和 modifier 合起来就被成为 BEM entity。它是一个 既可以用来指代单独的 BEM 实体又可以作为 block、element 和 modifier 的总称的 概念。</p>
+</blockquote>
+<h2 id="Mix（混合体）"><a href="#Mix（混合体）" class="headerlink" title="Mix（混合体）"></a>Mix（混合体）</h2><blockquote>
+<p>Mix 是被托管在（being hosted on）一个单独的 DOM 节点上的 不同 BEM 实体（混合而成）的一个实例。</p>
+</blockquote>
+<p>Mix允许我们</p>
+<ul>
+<li>把几个 BEM 实体的功能（behavior）和样式 组合在一起，同时避免重复代码</li>
+<li>在现有的 BEM 实体的基础上 创建语义上的新界面组件。让我们想一下这种 mix 情形：把一个 block 与 另一个 block 的一个 element 组合在一起。</li>
+</ul>
+<p>我们假设，项目里的链接（links）通过一个链接块（a link block）来实现。我们需要把菜单项（menu items ）格式化成链接（links）。这里有几种实现方法：</p>
+<ul>
+<li>创建一个 可以把菜单项（item）转变成链接（link）的 modifier。实现这样一个 modifier 即必然牵涉到 复制链接块的功能和样式。这样一来就会导致代码重复。</li>
+<li>取一个 把一个通用的链接块（link block ）与一个菜单块的一个链接元素（a link element ） 组合在一起的 mix。两个 BEM 实体的混合体（mix）可以让我们不用复制代码，就可以使用链接块的基本链接功能 和 菜单块的 CSS 规则。</li>
+</ul>
+<h2 id="BEM-tree（BEM-树-）"><a href="#BEM-tree（BEM-树-）" class="headerlink" title="BEM tree（BEM 树 ）"></a>BEM tree（BEM 树 ）</h2><blockquote>
+<p>BEM tree 是网页结构在 block、element 和 modifier 方面的表示（representation）。这是一个在 DOM 树之上的抽象概念，它描述了 BEM 实体的名称、它们的状态、顺序、嵌套和辅助数据。在现实生活中的项目，BEM tree可以呈现在任何支持树结构的形式（format）中。</p>
+</blockquote>
+<p>一个DOM树</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"header"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"logo"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"search-form"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"input"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lang-switcher"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>BEM tree</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">header</span><br><span class="line">    ├──logo</span><br><span class="line">    └──search-form</span><br><span class="line">        ├──input</span><br><span class="line">        └──button</span><br><span class="line">    └──lang-switcher</span><br></pre></td></tr></table></figure>
+
+<p>在 XML 和 BEMJSON 格式中，该 BEM tree 则是这样的<br>XML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;block:header&gt;</span><br><span class="line">    &lt;block:logo&#x2F;&gt;</span><br><span class="line">    &lt;block:search-form&gt;</span><br><span class="line">        &lt;block:input&#x2F;&gt;</span><br><span class="line">        &lt;block:button&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;block:search-form&gt;</span><br><span class="line">    &lt;block:lang-switcher&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;block:header&gt;</span><br></pre></td></tr></table></figure>
+
+<p>BEMJSON</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    block: &#39;header&#39;,</span><br><span class="line">    content : [</span><br><span class="line">        &#123; block : &#39;logo&#39; &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            block : &#39;search-form&#39;,</span><br><span class="line">            content : [</span><br><span class="line">                &#123; block : &#39;input&#39; &#125;,</span><br><span class="line">                &#123; block : &#39;button&#39; &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; block : &#39;lang-switcher&#39; &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Block-implementation（BEM实现-）"><a href="#Block-implementation（BEM实现-）" class="headerlink" title="Block implementation（BEM实现 ）"></a>Block implementation（BEM实现 ）</h3><p>   Block implementation 是指一组各不相同的 技术，这些技术决定着 BEM 实体以下几方面：</p>
+<ul>
+<li>行为/功能（behavior）</li>
+<li>外观</li>
+<li>测试</li>
+<li>模板</li>
+<li>文档（documentation）</li>
+<li>依赖描述</li>
+<li>附加数据（例如：图片）</li>
+</ul>
+<h3 id="Implementation-technology（实现技术）"><a href="#Implementation-technology（实现技术）" class="headerlink" title="Implementation technology（实现技术）"></a>Implementation technology（实现技术）</h3><pre><code>Implementation technology 是一种用于实现一个 block 的技术。Block 可以用一种或多种技术来实现，例如：</code></pre><ul>
+<li>行为/功能（behavior）– JavaScript, CoffeeScript</li>
+<li>外观– CSS, Stylus, Sass</li>
+<li>模板– BEMHTML, BH, Jade, Handlebars, XSL</li>
+<li>文档（documentation）– Markdown, Wiki, XML</li>
+</ul>
+<p>例如，如果一个 block 的外观是用 CSS 来定义的，这意味着 block 是用 CSS 技术实现的。同样地，如果一个 block 的文档是用 Markdown 格式写的，block 就是用 Markdown 技术来实现的。</p>
+<h3 id="Block-redefinition（块重定义）"><a href="#Block-redefinition（块重定义）" class="headerlink" title="Block redefinition（块重定义）"></a>Block redefinition（块重定义）</h3><pre><code>Block implementation 是指通过在不同的层级上增加新的功能到 block 来修改 block。</code></pre><h3 id="Redifinition-level（重定义等级）"><a href="#Redifinition-level（重定义等级）" class="headerlink" title="Redifinition level（重定义等级）"></a>Redifinition level（重定义等级）</h3><pre><code>Redefinition level 是指一组 BEM 实体和它们的部分实现。</code></pre><p>一个 block 的最终实现 可以被分成 不同的重定义层级。每一个新的层级都会扩展或覆盖原始的 block implementation。最终的结果由 来自所有按照预设的连续的顺序排列的重定义层级的独立的 block implementation technologies 组合而成。<br>任何 BEM 的实现技术都可以被重新定义。</p>
+<p>例如，有一个连接到项目的第三方库。这个库包含现成的 block implementation。该项目指定的 block 保存在一个另一个重定义层级。比方说，我们需要修改这个库里的某一个 block 的外观。这并不需要在库的源代码里修改 block 的 CSS 规则 或者 在项目里复制代码。我们只需在项目里为 那一个 block 创建额外的 CSS 规则。在生成过程中，最终实现将会结合库级别的原有规则和项目级别中新的样式规则。</p>
+
+      
+    </div>
+    
+    
+    
+    <div>
+    
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
+    </div>
+    <div>
+      
+        
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i> 前端基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/18/%E7%B1%BB%E5%92%8C%E4%BC%AA%E5%85%83%E7%B4%A0/" rel="next" title="伪类和伪元素">
+                <i class="fa fa-chevron-left"></i> 伪类和伪元素
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/25/css%E5%AE%9E%E7%8E%B0%E7%AE%AD%E5%A4%B4%EF%BC%8C%E5%85%BC%E5%AE%B9ie8/" rel="prev" title="css实现箭头，兼容ie8">
+                css实现箭头，兼容ie8 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="郭峰" />
+            
+              <p class="site-author-name" itemprop="name">郭峰</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+          <nav class="site-state motion-element">
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive%20/%E5%BD%92%E6%A1%A3">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/guofes" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/guofes" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://youtube.com/guofes" target="_blank" title="YouTube">
+                      
+                        <i class="fa fa-fw fa-youtube"></i>YouTube</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com//" title="es6" target="_blank">es6</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.apple.com/swift/" title="Swift 4" target="_blank">Swift 4</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.apple.com/documentation/objectivec" title="Objective-C" target="_blank">Objective-C</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BEM"><span class="nav-number">1.</span> <span class="nav-text">BEM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-Block（块）"><span class="nav-number">2.</span> <span class="nav-text">B Block（块）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内容"><span class="nav-number">2.1.</span> <span class="nav-text">内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套关系"><span class="nav-number">2.2.1.</span> <span class="nav-text">嵌套关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.2.2.</span> <span class="nav-text">特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-Element（元素）"><span class="nav-number">3.</span> <span class="nav-text">E Element（元素）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内容-1"><span class="nav-number">3.1.</span> <span class="nav-text">内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-1"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1嵌套关系"><span class="nav-number">3.2.1.</span> <span class="nav-text">1嵌套关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2组成部分"><span class="nav-number">3.2.2.</span> <span class="nav-text">2组成部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3可选性"><span class="nav-number">3.2.3.</span> <span class="nav-text">3可选性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#M-Modifier（修饰符）"><span class="nav-number">4.</span> <span class="nav-text">M Modifier（修饰符）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内容-2"><span class="nav-number">4.1.</span> <span class="nav-text">内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰符的类型"><span class="nav-number">4.1.1.</span> <span class="nav-text">修饰符的类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-2"><span class="nav-number">4.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEM-entity（BEM-实体）"><span class="nav-number">4.3.</span> <span class="nav-text">BEM entity（BEM 实体）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mix（混合体）"><span class="nav-number">4.4.</span> <span class="nav-text">Mix（混合体）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEM-tree（BEM-树-）"><span class="nav-number">4.5.</span> <span class="nav-text">BEM tree（BEM 树 ）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Block-implementation（BEM实现-）"><span class="nav-number">4.5.1.</span> <span class="nav-text">Block implementation（BEM实现 ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Implementation-technology（实现技术）"><span class="nav-number">4.5.2.</span> <span class="nav-text">Implementation technology（实现技术）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Block-redefinition（块重定义）"><span class="nav-number">4.5.3.</span> <span class="nav-text">Block redefinition（块重定义）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redifinition-level（重定义等级）"><span class="nav-number">4.5.4.</span> <span class="nav-text">Redifinition level（重定义等级）</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郭峰</span>
+<!--
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">28.6k</span>
+  
+</div>
+-->
+<br>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_pv"></span>
+</span>
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+  
+    <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  
+
+
+-->
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"><i class="fa fa-star"></i>博客全站共28.6k字</span>
+</div>  
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

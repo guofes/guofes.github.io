@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/satr-32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/star-16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端基础," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="stitches" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="浏览器坐标系一、各种坐标系（坐标原点） 1)、可视区域（浏览器窗口中可以看到（网页）的区域）左上角 2)、页面左上角 3)、某个HTML元素的左上角  1）以可视区域左上角为坐标系原点 event.clientX: 鼠标距离原点的x方向的坐标  event.clientY: 鼠标距离原点的y方向的坐标  2）、以页面左上角为坐标系原点 event.pageX:鼠标距离原点的x方向的坐标 &#x3D; eve">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器坐标，尺寸和移动端的适配">
+<meta property="og:url" content="http:&#x2F;&#x2F;guofes.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9D%90%E6%A0%87%EF%BC%8C%E5%B0%BA%E5%AF%B8%E5%92%8C%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%9A%84%E9%80%82%E9%85%8D&#x2F;index.html">
+<meta property="og:site_name" content="stitches">
+<meta property="og:description" content="浏览器坐标系一、各种坐标系（坐标原点） 1)、可视区域（浏览器窗口中可以看到（网页）的区域）左上角 2)、页面左上角 3)、某个HTML元素的左上角  1）以可视区域左上角为坐标系原点 event.clientX: 鼠标距离原点的x方向的坐标  event.clientY: 鼠标距离原点的y方向的坐标  2）、以页面左上角为坐标系原点 event.pageX:鼠标距离原点的x方向的坐标 &#x3D; eve">
+<meta property="article:published_time" content="2019-12-25T08:43:00.000Z">
+<meta property="article:modified_time" content="2020-07-20T07:24:42.667Z">
+<meta property="article:author" content="郭峰">
+<meta property="article:tag" content="前端基础">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://guofes.github.io/2019/12/25/浏览器坐标，尺寸和移动端的适配/"/>
+
+
+
+
+
+  <title>浏览器坐标，尺寸和移动端的适配 | stitches</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://www.github.com/guofes" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">stitches</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+       <!-- /%20 -->
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home  //首页"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+       <!-- /about/%20 -->
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user //关于"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+       <!-- /tags/%20 -->
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags //标签"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+       <!-- /categories/%20 -->
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th //分类"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+       <!-- /archives/%20 -->
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive //归档"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://guofes.github.io/2019/12/25/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9D%90%E6%A0%87%EF%BC%8C%E5%B0%BA%E5%AF%B8%E5%92%8C%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%9A%84%E9%80%82%E9%85%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郭峰">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="stitches">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浏览器坐标，尺寸和移动端的适配</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T16:43:00+08:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="浏览器坐标系"><a href="#浏览器坐标系" class="headerlink" title="浏览器坐标系"></a>浏览器坐标系</h1><h2 id="一、各种坐标系（坐标原点）"><a href="#一、各种坐标系（坐标原点）" class="headerlink" title="一、各种坐标系（坐标原点）"></a>一、各种坐标系（坐标原点）</h2><ul>
+<li>1)、可视区域（浏览器窗口中可以看到（网页）的区域）左上角</li>
+<li>2)、页面左上角</li>
+<li>3)、某个HTML元素的左上角</li>
+</ul>
+<h3 id="1）以可视区域左上角为坐标系原点"><a href="#1）以可视区域左上角为坐标系原点" class="headerlink" title="1）以可视区域左上角为坐标系原点"></a>1）以可视区域左上角为坐标系原点</h3><ul>
+<li>event.clientX: 鼠标距离原点的x方向的坐标 </li>
+<li>event.clientY: 鼠标距离原点的y方向的坐标</li>
+</ul>
+<h3 id="2）、以页面左上角为坐标系原点"><a href="#2）、以页面左上角为坐标系原点" class="headerlink" title="2）、以页面左上角为坐标系原点"></a>2）、以页面左上角为坐标系原点</h3><ul>
+<li>event.pageX:鼠标距离原点的x方向的坐标 = event.clientX + scrollTop</li>
+<li>event.pageY:鼠标距离原点的Y方向的坐标 = event.clientY + scrollLeft</li>
+</ul>
+<h3 id="3）以某个元素的左上角为坐标系原点"><a href="#3）以某个元素的左上角为坐标系原点" class="headerlink" title="3）以某个元素的左上角为坐标系原点"></a>3）以某个元素的左上角为坐标系原点</h3><ul>
+<li>event.offsetX:鼠标距离事件源的x方向的坐标</li>
+<li>event.offsetY:鼠标距离事件源的y方向的坐标</li>
+</ul>
+<a id="more"></a>
+<h3 id="4）定位元素（style属性的left和top）"><a href="#4）定位元素（style属性的left和top）" class="headerlink" title="4）定位元素（style属性的left和top）"></a>4）定位元素（style属性的left和top）</h3><ul>
+<li>left和top的坐标系原点是谁？（前提元素有定位（position属性））基于父元素（离该元素最近的有定位的父元素）</li>
+<li>1）、父元素是relative，当前元素是absolute;当前元素left和top的基准是最近的有relative的父元素。</li>
+<li>2）、当前元素是relative；当前元素的left和top的基准是当前元素原始的位置</li>
+<li>3）、当前元素是fixed；当前元素的left和top的基准是可视区域。</li>
+</ul>
+<h3 id="5）offsetLeft和offsetTop："><a href="#5）offsetLeft和offsetTop：" class="headerlink" title="5）offsetLeft和offsetTop："></a>5）offsetLeft和offsetTop：</h3><ul>
+<li>A、当某个元素的父级元素没有定位，offsetLeft和offsetTop表示距离页面的坐标（既就是left和top）也就是说，父级元素没有定位时，就是按照页面定位的。</li>
+<li>B、当某个元素的父级有定位，则offsetLeft和offsetTop表示距离有定位最近的父元素的坐标。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">网页可见区域宽： document.body.clientWidth</span><br><span class="line">网页可见区域高： document.body.clientHeight</span><br><span class="line">网页可见区域宽： document.body.offsetWidth (包括边线的宽)</span><br><span class="line">网页可见区域高： document.body.offsetHeight (包括边线的高)</span><br><span class="line">网页正文全文宽： document.body.scrollWidth</span><br><span class="line">网页正文全文高： document.body.scrollHeight</span><br><span class="line">网页被卷去的高： document.body.scrollTop</span><br><span class="line">网页被卷去的左： document.body.scrollLeft</span><br><span class="line">网页正文部分上： window.screenTop</span><br><span class="line">网页正文部分左： window.screenLeft</span><br><span class="line">屏幕分辨率的高： window.screen.height</span><br><span class="line">屏幕分辨率的宽： window.screen.width</span><br><span class="line">屏幕可用工作区高度： window.screen.availHeight</span><br><span class="line">屏幕可用工作区宽度： window.screen.availWidth</span><br><span class="line">窗口的文档显示区的高度: window.innerWidth</span><br><span class="line">窗口的文档显示区的宽度: window.innerHeight</span><br></pre></td></tr></table></figure>
+
+<h1 id="CSS尺寸单位"><a href="#CSS尺寸单位" class="headerlink" title="CSS尺寸单位"></a>CSS尺寸单位</h1><h3 id="像素"><a href="#像素" class="headerlink" title="像素"></a>像素</h3><ul>
+<li>指基本原色素及其灰度的基本编码。css中的像素只是一个抽象的单位，在不同的设备或不同的环境中，css中的1px所代表的设备物理像素是不同的。</li>
+</ul>
+<h3 id="物理像素"><a href="#物理像素" class="headerlink" title="物理像素"></a>物理像素</h3><ul>
+<li>它是显示器（电脑、手机屏幕）最小的物理显示单位，物理像素指的是显示器上最小的点。物理像素的大小取决于屏幕。是一个无法改变的属性。</li>
+</ul>
+<h3 id="设备独立像素"><a href="#设备独立像素" class="headerlink" title="设备独立像素"></a>设备独立像素</h3><ul>
+<li>开发过程中使用的css中的px</li>
+</ul>
+<h3 id="设备像素比（device-pixel-radio）"><a href="#设备像素比（device-pixel-radio）" class="headerlink" title="设备像素比（device pixel radio）"></a>设备像素比（device pixel radio）</h3><p>设备像素比 = 物理像素 / 设备独立像素，单位是dpr！（device pixel radio）</p>
+<h3 id="Retina屏幕"><a href="#Retina屏幕" class="headerlink" title="Retina屏幕"></a>Retina屏幕</h3><ul>
+<li>所谓“Retina”是一种显示标准，是把更多的像素点压缩至一块屏幕里，从而达到更高的分辨率并提高屏幕显示的细腻程度。也被称为视网膜显示屏 ——百度百科</li>
+<li>因为Retina屏幕的出现，在pc端默认情况下，css中的1px等于1物理像素，但在移动端1px不一定等于1物理像素，比如说iPhone的设备独立像素是375和667,因为它使用了Retina屏幕，他的dpr是2，所以iPhone 6 的物理像素为 750 *1334</li>
+<li>在不同的屏幕上(普通屏幕 vs retina屏幕)，css中1px所呈现的大小(物理尺寸)是一致的，不同的是1px所对应的物理像素个数是不一致的。在普通屏幕下，1px 对应 1个物理像素(1:1)。 在Retina屏幕下（dpr=2），1px对应 2x2个物理像素(1:4)。</li>
+<li>像素</li>
+</ul>
+<h3 id="浏览器缩放"><a href="#浏览器缩放" class="headerlink" title="浏览器缩放"></a>浏览器缩放</h3><p>缩放是缩放CSS像素(缩放比例为1时,一个CSS像素等于一个屏幕像素)，就是在屏幕分辨率不变的情况下，用户对浏览进行了缩放</p>
+<ul>
+<li>强调一点，用户的缩放行为是对浏览器进行的，缩放的是css像素，而非分辨率，分辨率是屏幕的分辨率，不论你怎么缩放当前页面，屏幕分辨率都不会改变<blockquote>
+<p>&lt; meta name=”viewport” content=”width=device-width,initial-scale=1.0”&gt; //禁止浏览器缩放</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="em"><a href="#em" class="headerlink" title="em"></a>em</h3><ul>
+<li>em的值并不是固定的；</li>
+<li>em会继承父级元素的字体大小；</li>
+<li>任意浏览器的默认字体高都是16px。所有未经调整的浏览器都符合: 1em=16px。body选择器中声明Font-size=62.5%&lt;==&gt;1em=10px。<blockquote>
+<p>em 是相对长度单位。相对于当前对象内文本的字体尺寸。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h3><ul>
+<li>rem 是CSS3的一个相对单位（root em，根em）</li>
+<li>使用rem为元素设定字体大小时，仍然是相对大小，但相对的只是HTML根元素</li>
+<li>只要html的font-size大小不变，1rem所代表的font-size大小就不会变，rem只取决于html的font-size</li>
+</ul>
+<h3 id="视口单位-Viewport-units"><a href="#视口单位-Viewport-units" class="headerlink" title="视口单位(Viewport units)"></a>视口单位(Viewport units)</h3><ul>
+<li><p>在PC端，视口指的是在PC端，指的是浏览器的可视区域；</p>
+</li>
+<li><p>而在移动端，它涉及3个视口：Layout Viewport（布局视口），Visual Viewport（视觉视口），Ideal Viewport（理想视口）。</p>
+</li>
+<li><p>视口单位中的“视口”，PC端指的是浏览器的可视区域；移动端指的就是Viewport中的Layout Viewport。</p>
+</li>
+<li><p>根据CSS3规范，视口单位主要包括以下4个：</p>
+<blockquote>
+<p>兼容性问题(在移动端 iOS 8 以上以及 Android 4.4 以上获得支持，并且在微信 x5 内核中也得到完美的全面支持)</p>
+</blockquote>
+<pre><code>1.vw：1vw等于视口宽度的1%。
+2.vh：1vh等于视口高度的1%。
+3.vmin：选取vw和vh中最小的那个。
+4.vmax：选取vw和vh中最大的那个。</code></pre></li>
+</ul>
+<h1 id="移动端的适配"><a href="#移动端的适配" class="headerlink" title="移动端的适配"></a>移动端的适配</h1><h3 id="rem方案"><a href="#rem方案" class="headerlink" title="rem方案"></a>rem方案</h3><ul>
+<li>原理<blockquote>
+<p>rem是相对长度单位，rem方案中的样式设计为相对于根元素font-size计算值的倍数。根据 屏幕宽度 设置html标签的font-size，在布局时使用 rem 单位布局，达到自适应的目的，是 弹性布局 的一种实现方式。</p>
+</blockquote>
+</li>
+<li>实现过程： <blockquote>
+<p>首先获取文档根元素和设备dpr，设置 rem，在html文档加载和解析完成后调整body字体大小； 在页面缩放 / 回退 / 前进的时候， 获取元素的内部宽度 (不包括垂直滚动条，边框和外边距)，重新调整 rem 大小。</p>
+</blockquote>
+</li>
+<li>实现方法：<blockquote>
+<p>用 css 处理器或 npm 包将页面 css 样式中的px自动转换成 rem。在整个 flexible 适配方案中，文本使用px作为单位，使用[data-dpr]属性来区分不同dpr下的文本字号。由于手机浏览器对字体显示最小是8px，因此对于小尺寸文字需要采用px为单位，防止通过 rem 转化后出现显示问题。手机淘宝 中的字体使用px为单位，腾讯新闻中的字体使用rem为单位。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line">(function(win, lib) &#123;</span><br><span class="line">    var doc &#x3D; win.document; &#x2F;&#x2F;当前文档对象</span><br><span class="line">    var docEl &#x3D; doc.documentElement; &#x2F;&#x2F;文档对象根元素的只读属性</span><br><span class="line">    var metaEl &#x3D; doc.querySelector(&#39;meta[name&#x3D;&quot;viewport&quot;]&#39;);</span><br><span class="line">    var flexibleEl &#x3D; doc.querySelector(&#39;meta[name&#x3D;&quot;flexible&quot;]&#39;);</span><br><span class="line">    var dpr &#x3D; 0;</span><br><span class="line">    var scale &#x3D; 0;</span><br><span class="line">    var tid;</span><br><span class="line">    var flexible &#x3D; lib.flexible || (lib.flexible &#x3D; &#123;&#125;);</span><br><span class="line">    if (metaEl) &#123; </span><br><span class="line">    &#x2F;&#x2F;当meta中viewport的标签设置了scale时，将根据scale手动设置dpr</span><br><span class="line">        console.warn(&#39;将根据已有的meta标签来设置缩放比例&#39;);</span><br><span class="line">        var match &#x3D; metaEl.getAttribute(&#39;content&#39;).match(&#x2F;initial\-scale&#x3D;([\d\.]+)&#x2F;);</span><br><span class="line">        if (match) &#123;</span><br><span class="line">            scale &#x3D; parseFloat(match[1]);</span><br><span class="line">            dpr &#x3D; parseInt(1 &#x2F; scale);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else if (flexibleEl) &#123;   </span><br><span class="line">    &#x2F;&#x2F;当meta中flexible的标签存在时，据此设置dpr</span><br><span class="line">        var content &#x3D; flexibleEl.getAttribute(&#39;content&#39;);</span><br><span class="line">        if (content) &#123;</span><br><span class="line">            var initialDpr &#x3D; content.match(&#x2F;initial\-dpr&#x3D;([\d\.]+)&#x2F;);</span><br><span class="line">            var maximumDpr &#x3D; content.match(&#x2F;maximum\-dpr&#x3D;([\d\.]+)&#x2F;);</span><br><span class="line">            if (initialDpr) &#123;</span><br><span class="line">                dpr &#x3D; parseFloat(initialDpr[1]);</span><br><span class="line">                scale &#x3D; parseFloat((1 &#x2F; dpr).toFixed(2));    </span><br><span class="line">            &#125;</span><br><span class="line">            if (maximumDpr) &#123;</span><br><span class="line">                dpr &#x3D; parseFloat(maximumDpr[1]);</span><br><span class="line">                scale &#x3D; parseFloat((1 &#x2F; dpr).toFixed(2));    </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!dpr &amp;&amp; !scale) &#123; </span><br><span class="line">    &#x2F;&#x2F;根据js获取到的devicePixelRatio设置dpr及scale，scale是dpr的倒数</span><br><span class="line">        var isAndroid &#x3D; win.navigator.appVersion.match(&#x2F;android&#x2F;gi);</span><br><span class="line">        var isIPhone &#x3D; win.navigator.appVersion.match(&#x2F;iphone&#x2F;gi);</span><br><span class="line">        var devicePixelRatio &#x3D; win.devicePixelRatio;</span><br><span class="line">        if (isIPhone) &#123;</span><br><span class="line">            &#x2F;&#x2F; iOS下，对于2和3的屏，分别用2和3倍方案</span><br><span class="line">            if (devicePixelRatio &gt;&#x3D; 3 &amp;&amp; (!dpr || dpr &gt;&#x3D; 3)) &#123;                </span><br><span class="line">                dpr &#x3D; 3;</span><br><span class="line">            &#125; else if (devicePixelRatio &gt;&#x3D; 2 &amp;&amp; (!dpr || dpr &gt;&#x3D; 2))&#123;</span><br><span class="line">                dpr &#x3D; 2;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                dpr &#x3D; 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            &#x2F;&#x2F; 其他设备下，仍旧使用1倍的方案</span><br><span class="line">            dpr &#x3D; 1;</span><br><span class="line">        &#125;</span><br><span class="line">        scale &#x3D; 1 &#x2F; dpr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    docEl.setAttribute(&#39;data-dpr&#39;, dpr);</span><br><span class="line">    &#x2F;&#x2F;文本字号不建议使用rem，flexible适配方案中，文本使用px作为单位，使用[data-dpr]属性来区分不同dpr下的文本字号</span><br><span class="line">    </span><br><span class="line">    if (!metaEl) &#123;</span><br><span class="line">    &#x2F;&#x2F;添加meta标签，设置name为viewport，content根据scale设置缩放比(默认、最大、最小缩放比)</span><br><span class="line">        metaEl &#x3D; doc.createElement(&#39;meta&#39;);</span><br><span class="line">        metaEl.setAttribute(&#39;name&#39;, &#39;viewport&#39;);</span><br><span class="line">        metaEl.setAttribute(&#39;content&#39;, &#39;initial-scale&#x3D;&#39; + scale + &#39;, maximum-scale&#x3D;&#39; + scale + &#39;, minimum-scale&#x3D;&#39; + scale + &#39;, user-scalable&#x3D;no&#39;);</span><br><span class="line">        if (docEl.firstElementChild) &#123;</span><br><span class="line">            docEl.firstElementChild.appendChild(metaEl);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            var wrap &#x3D; doc.createElement(&#39;div&#39;);</span><br><span class="line">            wrap.appendChild(metaEl);</span><br><span class="line">            doc.write(wrap.innerHTML);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function refreshRem()&#123;</span><br><span class="line">        &#x2F;&#x2F;更新rem值</span><br><span class="line">        var width &#x3D; docEl.getBoundingClientRect().width;</span><br><span class="line">        if (width &#x2F; dpr &gt; 540) &#123;</span><br><span class="line">            width &#x3D; 540 * dpr;</span><br><span class="line">        &#125;</span><br><span class="line">        var rem &#x3D; width &#x2F; 10; &#x2F;&#x2F;1rem &#x3D; viewWidth &#x2F; 10</span><br><span class="line">        docEl.style.fontSize &#x3D; rem + &#39;px&#39;;</span><br><span class="line">        flexible.rem &#x3D; win.rem &#x3D; rem;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F;resize与pageshow延时300ms触发refreshRem(),使用防抖函数，防止事件被高频触发可能引起性能问题</span><br><span class="line">    win.addEventListener(&#39;resize&#39;, function() &#123;</span><br><span class="line">        clearTimeout(tid);</span><br><span class="line">        tid &#x3D; setTimeout(refreshRem, 300);</span><br><span class="line">    &#125;, false);</span><br><span class="line">    win.addEventListener(&#39;pageshow&#39;, function(e) &#123;</span><br><span class="line">        &#x2F;&#x2F;当一条会话历史纪录被执行的时候触发事件，包括后退&#x2F;前进按钮，同时会在onload页面触发后初始化页面时触发</span><br><span class="line">        if (e.persisted) &#123;&#x2F;&#x2F;表示网页是否来自缓存</span><br><span class="line">            clearTimeout(tid);</span><br><span class="line">            tid &#x3D; setTimeout(refreshRem, 300);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, false);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;在html文档加载和解析完成后设置body元素字体大小</span><br><span class="line">    if (doc.readyState &#x3D;&#x3D;&#x3D; &#39;complete&#39;) &#123;</span><br><span class="line">        doc.body.style.fontSize &#x3D; 12 * dpr + &#39;px&#39;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        doc.addEventListener(&#39;DOMContentLoaded&#39;, function(e) &#123;</span><br><span class="line">            doc.body.style.fontSize &#x3D; 12 * dpr + &#39;px&#39;;</span><br><span class="line">        &#125;, false);</span><br><span class="line">    &#125; </span><br><span class="line">    &#x2F;&#x2F;浏览器有最小字体限制，css在pc上font-size是12px(移动端最小是8px), 也就是css像素是12，其DPR为1，在移动端dpr有可能为2和3，为了保证字体不变小，需要用12*dpr进行换算。</span><br><span class="line">   </span><br><span class="line">    refreshRem();</span><br><span class="line"></span><br><span class="line">   &#x2F;&#x2F;实现rem与px相互转换</span><br><span class="line">    flexible.dpr &#x3D; win.dpr &#x3D; dpr;</span><br><span class="line">    flexible.refreshRem &#x3D; refreshRem;</span><br><span class="line">    flexible.rem2px &#x3D; function(d) &#123;</span><br><span class="line">        var val &#x3D; parseFloat(d) * this.rem;</span><br><span class="line">        if (typeof d &#x3D;&#x3D;&#x3D; &#39;string&#39; &amp;&amp; d.match(&#x2F;rem$&#x2F;)) &#123;</span><br><span class="line">            val +&#x3D; &#39;px&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">        return val;</span><br><span class="line">    &#125;</span><br><span class="line">    flexible.px2rem &#x3D; function(d) &#123;</span><br><span class="line">        var val &#x3D; parseFloat(d) &#x2F; this.rem;</span><br><span class="line">        if (typeof d &#x3D;&#x3D;&#x3D; &#39;string&#39; &amp;&amp; d.match(&#x2F;px$&#x2F;)) &#123;</span><br><span class="line">            val +&#x3D; &#39;rem&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">        return val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;)(window, window[&#39;lib&#39;] || (window[&#39;lib&#39;] &#x3D; &#123;&#125;));</span><br></pre></td></tr></table></figure>
+<p> 优势</p>
+<ul>
+<li>兼容性好;</li>
+<li>ios: 6.1系统以上都支持;</li>
+<li>android: 2.1系统以上都支持;</li>
+<li>大部分主流浏览器都支持</li>
+</ul>
+<p>不足</p>
+<ul>
+<li>不是纯css移动适配方案，需要引入js脚本 在头部内嵌一段 js脚本 监听分辨率的变化来动态改变根元素的字体大小，css样式和 js 代码有一定 耦合性，并且必须将改变font-size的代码放在 css 样式之前。<br>…</li>
+<li>小数像素问题，浏览器渲染最小的单位是像素，元素根据屏幕宽度自适应，通过 rem 计算后可能会出现小数像素，浏览器会对这部分小数四舍五入，按照整数渲染。浏览器在渲染时所做的摄入处理只是应用在元素的尺寸渲染上，其真实占据的空间依旧是原始大小。也就是说如果一个元素尺寸是 0.625px，那么其渲染尺寸应该是 1px，空出的 0.375px 空间由其临近的元素填充；同样道理，如果一个元素尺寸是 0.375px，其渲染尺寸就应该是0，但是其会占据临近元素 0.375px 的空间。会导致：缩放到低于1px的元素时隐时现（解决办法：指定最小转换像素，对于比较小的像素，不转换为 rem 或 vw）；两个同样宽度的元素因为各自周围的元素宽度不同，导致两元素相差1px；宽高相同的正方形，长宽不等了；border-radius: 50% 画的圆不圆。<br>…</li>
+<li>Android 浏览器下 line-height 垂直居中偏离的问题。常用的垂直居中方式就是使用line-height，这种方法在Android设备下并不能完全居中。<br>…</li>
+<li>cursor: pointer 元素点击背景变色的问题，对添加了cursor:pointer属性的元素，在移动端点击时，背景会高亮。为元素添加tag-highlight-color:transparent 属性可以隐藏背景高亮。</li>
+</ul>
+<h3 id="vh-vw方案"><a href="#vh-vw方案" class="headerlink" title="vh/vw方案"></a>vh/vw方案</h3><ul>
+<li>使用 css 预处理器把设计稿尺寸转换为 vw 单位，包括 文本，布局高宽，间距 等，使得这些元素能够随视口大小自适应调整。以1080px设计稿为基准，转化的计算表示为</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 以1080px作为设计稿基准</span><br><span class="line">$vw_base: 1080</span><br><span class="line">@function vw($px) &#123;</span><br><span class="line">    @return($px &#x2F; 1080) * 100vw</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优势</p>
+<ul>
+<li>纯 css 移动端适配方案，不存在脚本依赖问题</li>
+<li>相对于 rem 以根元素字体大小的倍数 定义 元素大小，逻辑清晰简单，视口单位依赖于视口的尺寸 “1vw ＝ 1/100 viewport width”，根据 视口尺寸的百分比 来定义 元素宽度</li>
+</ul>
+<p>不足</p>
+<ul>
+<li>存在一些兼容性问题，Android4.4以下不支持、</li>
+</ul>
+<h3 id="引入flexible-js实现了rem自适应"><a href="#引入flexible-js实现了rem自适应" class="headerlink" title="引入flexible.js实现了rem自适应"></a>引入flexible.js实现了rem自适应</h3><ul>
+<li><p>使用方法，引入flexible.js.计算尺寸时，只需要将对应的尺寸除以100</p>
+</li>
+<li><p>flexible.js利用rem单位相对根元素<html>的font-size来做计算，而我们需要做的就是根据不同的屏幕算出html的font-size，而页面内的大小单位都根据rem来写，从而实现了自适应。<br>事实上他做了这几样事情：</p>
+</li>
+<li><p>动态改写&lt; meta&gt;标签</p>
+</li>
+<li><p>给&lt; html&gt;元素添加data-dpr属性，并且动态改写data-dpr的值</p>
+</li>
+<li><p>给&lt; html&gt;元素添加font-size属性，并且动态改写font-size的值</p>
+</li>
+</ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.cnblogs.com/webspace/p/8625464.html#%E5%87%A0%E4%B8%AA%E4%B8%93%E6%9C%89%E5%90%8D%E8%AF%8D%E5%92%8C%E5%8D%95%E4%BD%8D" target="_blank" rel="noopener">web前端–移动端适配总结</a></li>
+<li><a href="https://blog.csdn.net/qq1556837534/article/details/51843075" target="_blank" rel="noopener">详细解析 JavaScript 获取元素的坐标</a></li>
+<li><a href="https://blog.csdn.net/llll789789/article/details/97267575" target="_blank" rel="noopener">CSS尺寸单位介绍</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    <div>
+    
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
+    </div>
+    <div>
+      
+        
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i> 前端基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/25/css%E5%AE%9E%E7%8E%B0%E7%AE%AD%E5%A4%B4%EF%BC%8C%E5%85%BC%E5%AE%B9ie8/" rel="next" title="css实现箭头，兼容ie8">
+                <i class="fa fa-chevron-left"></i> css实现箭头，兼容ie8
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/25/ss%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/" rel="prev" title="css性能提升">
+                css性能提升 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="郭峰" />
+            
+              <p class="site-author-name" itemprop="name">郭峰</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+          <nav class="site-state motion-element">
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive%20/%E5%BD%92%E6%A1%A3">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/guofes" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/guofes" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://youtube.com/guofes" target="_blank" title="YouTube">
+                      
+                        <i class="fa fa-fw fa-youtube"></i>YouTube</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com//" title="es6" target="_blank">es6</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.apple.com/swift/" title="Swift 4" target="_blank">Swift 4</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.apple.com/documentation/objectivec" title="Objective-C" target="_blank">Objective-C</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器坐标系"><span class="nav-number">1.</span> <span class="nav-text">浏览器坐标系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、各种坐标系（坐标原点）"><span class="nav-number">1.1.</span> <span class="nav-text">一、各种坐标系（坐标原点）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）以可视区域左上角为坐标系原点"><span class="nav-number">1.1.1.</span> <span class="nav-text">1）以可视区域左上角为坐标系原点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）、以页面左上角为坐标系原点"><span class="nav-number">1.1.2.</span> <span class="nav-text">2）、以页面左上角为坐标系原点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）以某个元素的左上角为坐标系原点"><span class="nav-number">1.1.3.</span> <span class="nav-text">3）以某个元素的左上角为坐标系原点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4）定位元素（style属性的left和top）"><span class="nav-number">1.1.4.</span> <span class="nav-text">4）定位元素（style属性的left和top）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5）offsetLeft和offsetTop："><span class="nav-number">1.1.5.</span> <span class="nav-text">5）offsetLeft和offsetTop：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS尺寸单位"><span class="nav-number">2.</span> <span class="nav-text">CSS尺寸单位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#像素"><span class="nav-number">2.0.1.</span> <span class="nav-text">像素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理像素"><span class="nav-number">2.0.2.</span> <span class="nav-text">物理像素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设备独立像素"><span class="nav-number">2.0.3.</span> <span class="nav-text">设备独立像素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设备像素比（device-pixel-radio）"><span class="nav-number">2.0.4.</span> <span class="nav-text">设备像素比（device pixel radio）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Retina屏幕"><span class="nav-number">2.0.5.</span> <span class="nav-text">Retina屏幕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器缩放"><span class="nav-number">2.0.6.</span> <span class="nav-text">浏览器缩放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#em"><span class="nav-number">2.0.7.</span> <span class="nav-text">em</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rem"><span class="nav-number">2.0.8.</span> <span class="nav-text">rem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视口单位-Viewport-units"><span class="nav-number">2.0.9.</span> <span class="nav-text">视口单位(Viewport units)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#移动端的适配"><span class="nav-number">3.</span> <span class="nav-text">移动端的适配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rem方案"><span class="nav-number">3.0.1.</span> <span class="nav-text">rem方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vh-vw方案"><span class="nav-number">3.0.2.</span> <span class="nav-text">vh&#x2F;vw方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入flexible-js实现了rem自适应"><span class="nav-number">3.0.3.</span> <span class="nav-text">引入flexible.js实现了rem自适应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.0.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郭峰</span>
+<!--
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">28.6k</span>
+  
+</div>
+-->
+<br>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_pv"></span>
+</span>
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+  
+    <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  
+
+
+-->
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"><i class="fa fa-star"></i>博客全站共28.6k字</span>
+</div>  
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
